@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">ServiceCounter</string>
+    <string name="btnStartService">Start service</string>
+    <string name="btnStopService">Stop service</string>
+    <string name="LastLaunching">Service did not start</string>
+    <string name="ValueСounter">Value counter</string>
+</resources>
