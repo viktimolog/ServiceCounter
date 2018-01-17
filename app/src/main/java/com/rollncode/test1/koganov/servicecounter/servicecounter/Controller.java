@@ -2,8 +2,6 @@ package com.rollncode.test1.koganov.servicecounter.servicecounter;
 
 
 import android.content.SharedPreferences;
-import android.util.Log;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -27,33 +25,7 @@ public class Controller
         ed.commit();
     }
 
-    public void loadTime() {
-        lastLaunching = sp.getString(MainActivity.SAVETIME, "");
-    }
-
     public void loadCounter() {
-        String tmp = sp.getString(MainActivity.SAVECOUNTER,"");
-        if(tmp.equals(""))
-        {
-            valueCounter=0;
-        }
-        else
-        {
-            valueCounter = Integer.parseInt(tmp);
-        }
-    }
-
-    public void saveToSP()
-    {
-        Log.d("MyTag saveToSP","saveToSP");
-        SharedPreferences.Editor ed = sp.edit();
-        ed.putString(MainActivity.SAVETIME, lastLaunching);
-        ed.putString(MainActivity.SAVECOUNTER, Integer.toString(valueCounter));
-        ed.commit();
-    }
-
-    public void loadFromSP() {
-        lastLaunching = sp.getString(MainActivity.SAVETIME, "");
         String tmp = sp.getString(MainActivity.SAVECOUNTER,"");
         if(tmp.equals(""))
         {
@@ -71,18 +43,9 @@ public class Controller
         valueCounter=0;
     }
 
-    public Controller(String lastLaunching, int valueCounter) {
-        this.lastLaunching = lastLaunching;
-        this.valueCounter = valueCounter;
-    }
-
     public String getLastLaunching() {
         return lastLaunching;
     }
-
-//    public void setLastLaunching(String lastLaunching) {
-//        this.lastLaunching = lastLaunching;
-//    }
 
     public void setCurrentTime() {
         this.lastLaunching = new SimpleDateFormat
@@ -96,17 +59,5 @@ public class Controller
 
     public void setValueCounter(int valueCounter) {
         this.valueCounter = valueCounter;
-    }
-
-    public void setSp(SharedPreferences sp) {
-        this.sp = sp;
-    }
-
-    public SharedPreferences getSp() {
-        return sp;
-    }
-
-    public void setLastLaunching(String lastLaunching) {
-        this.lastLaunching = lastLaunching;
     }
 }
