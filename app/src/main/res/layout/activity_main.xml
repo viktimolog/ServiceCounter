@@ -5,18 +5,17 @@
     android:orientation="vertical"
     tools:context="com.rollncode.test1.koganov.servicecounter.servicecounter.MainActivity">
 
-    <!--<TextView android:layout_width="250dp"-->
     <TextView android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:id="@+id/tvLastLaunching"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="145dp"
         android:hint="@string/LastLaunching"
         android:textAlignment="center"
         android:textSize="24dp"/>
-    <!--<TextView android:layout_width="250dp"-->
+
     <TextView android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/tvLastLaunching"
         android:hint="@string/ValueСounter"
