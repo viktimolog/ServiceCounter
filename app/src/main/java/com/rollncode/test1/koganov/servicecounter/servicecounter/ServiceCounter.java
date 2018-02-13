@@ -5,12 +5,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
+import android.widget.Toast;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-public class ServiceCounter extends Service
-{
+public class ServiceCounter extends Service {
     private Boolean running;
     private Controller con;
     private ExecutorService es;
@@ -20,6 +21,7 @@ public class ServiceCounter extends Service
         super.onCreate();
         es = Executors.newFixedThreadPool(1);
     }
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
@@ -46,8 +48,9 @@ public class ServiceCounter extends Service
 
     @Override
     public void onDestroy() {
-        es.shutdownNow();
         running = false;
+        es.shutdownNow();
+        con.saveCounter();
         super.onDestroy();
     }
 
@@ -59,23 +62,18 @@ public class ServiceCounter extends Service
     class MyRun implements Runnable {
 
         public void run() {
-            while(running)
-            {
-                try
-                {
+            while (running) {
+                try {
                     TimeUnit.SECONDS.sleep(5);
-                    con.setValueCounter(con.getValueCounter()+1);
+                    con.setValueCounter(con.getValueCounter() + 1);
                     Intent intent = new Intent(MainActivity.BROADCAST_ACTION);
                     intent.putExtra(MainActivity.COUNTFROMSERVICE, con.getValueCounter())
-                    .putExtra(MainActivity.TIMEFROMSERVICE, con.getLastLaunching());
+                            .putExtra(MainActivity.TIMEFROMSERVICE, con.getLastLaunching());
                     sendBroadcast(intent);
-                }
-                catch (InterruptedException e)
-                {
+                } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
-            con.saveCounter();
         }
     }
 }

@@ -35,8 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
     public final static String BROADCAST_ACTION = "com.rollncode.test1.koganov.servicecounter.servicecounter";
 
-    public void saveContent()
-    {
+    public void saveContent() {
         stopService(intent);
         SharedPreferences.Editor ed = sp.edit();
         ed.putString(MainActivity.SAVECOUNTER, tvValueCounter.getText().toString());
@@ -44,20 +43,16 @@ public class MainActivity extends AppCompatActivity {
         ed.commit();
     }
 
-    public void loadContent()
-    {
+    public void loadContent() {
         String tmp = sp.getString(SAVETIME, "");
 
-        if(!tmp.equals(""))
+        if (!tmp.equals(""))
             tvLastLaunching.setText(sp.getString(SAVETIME, ""));
 
-        tmp = sp.getString(SAVECOUNTER,"");
-        if(tmp.equals(""))
-        {
+        tmp = sp.getString(SAVECOUNTER, "");
+        if (tmp.equals("")) {
             tvValueCounter.setText("0");
-        }
-        else
-        {
+        } else {
             tvValueCounter.setText(tmp);
         }
     }
@@ -68,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        isService=false;
+        isService = false;
 
         intent = new Intent(MainActivity.this, ServiceCounter.class);
 
@@ -82,26 +77,24 @@ public class MainActivity extends AppCompatActivity {
 
         loadContent();
 
-        br = new BroadcastReceiver()
-        {
+        br = new BroadcastReceiver() {
             public void onReceive(Context context, Intent intent) {
 
                 tvLastLaunching.setText(intent.getStringExtra(TIMEFROMSERVICE));
 
-                tvValueCounter.setText(Integer.toString(intent.getIntExtra(COUNTFROMSERVICE,0)));
+                tvValueCounter.setText(Integer.toString(intent.getIntExtra(COUNTFROMSERVICE, 0)));
             }
         };
-            IntentFilter intFilt = new IntentFilter(BROADCAST_ACTION);
-            registerReceiver(br, intFilt);
+        IntentFilter intFilt = new IntentFilter(BROADCAST_ACTION);
+        registerReceiver(br, intFilt);
 
         btnStartService.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                if(!isService)
-                {
+                if (!isService) {
                     startService(intent);
-                    isService=true;
+                    isService = true;
                 }
             }
         });
@@ -110,10 +103,9 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                if(isService)
-                {
+                if (isService) {
                     stopService(intent);
-                    isService=false;
+                    isService = false;
                 }
             }
         });
@@ -122,15 +114,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
-        isService=false;
-
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        saveContent();
     }
 
     @Override
